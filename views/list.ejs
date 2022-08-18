@@ -33,7 +33,7 @@
             <p> 작성날짜 : <%= posts[i].날짜 %> </p>
             <button class="btn btn-danger delete" data-id="<%= posts[i]._id %>">삭제</button>
             <button class="btn btn-danger" onclick="window.location.href = '/edit/<%= posts[i]._id %>'">수정</button>
-            <button class="btn btn-danger" onclick="window.location.href = '/comment/<%= posts[i]._id %>'">댓글달기</button>
+            <button class="btn btn-secondary chat" data-id="<%= posts[i].작성자 %>">채팅</button>
 
           </li>
           <% } %>
@@ -56,9 +56,16 @@
               data: {_id : 글번호},            
           }).done(function(결과){
               console.log('성공하나')
-              지금누른거.parent('li').fadeOut();
+              지금누른거.parent('li').fadeOut();      
           }).fail(function(a,b,c){
               console.log(a,b,c);
+          });
+
+          $(".chat").click(function(e){
+            var id=e.target.dataset.id;
+            $.post('/chatroom', {당한사람: _id}).then( ()=>{
+                console.log('성공')
+            })
           });
         })
 
@@ -83,8 +90,6 @@
     -->
   </body>
 </html>
-
-
 
 
 
